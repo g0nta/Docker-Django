@@ -1,0 +1,19 @@
+web:
+  build: ./web
+  restart: always
+  command: python manage.py runserver 0.0.0.0:8000
+  volumes: 
+    - ./web:/web
+  ports:
+    - "8000:8000"
+  links:
+    - mysql:mysql
+mysql:
+  build: ./mysql
+  restart: always
+  ports:
+    - "3306:3306"
+  volumes_from:
+    - storage
+storage:
+  build: ./storage
